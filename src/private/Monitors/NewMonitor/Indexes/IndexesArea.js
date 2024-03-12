@@ -17,8 +17,8 @@ function IndexesArea(props) {
 
     useEffect(() => {
         //[RSI], [EMA, 20]
-        if (props.indexes) {
-            setIndexes(props.indexes.split(',').map(ix => {
+        if (props?.indexes) {
+            setIndexes(props?.indexes.split(',').map(ix => {
                 const split = ix.split('_');
                 if (split.length > 1) {
                     const key = split[0];
@@ -28,7 +28,7 @@ function IndexesArea(props) {
                 return { key: split[0], params: '' };
             }))
         }
-    }, [props.indexes])
+    }, [props?.indexes])
 
     function onRemoveIndex(key) {
         const position = indexes.findIndex(ix => ix.key === key);
@@ -42,11 +42,11 @@ function IndexesArea(props) {
     }
 
     function onAddIndex(index) {
-        if (indexes.some(ix => ix.key === index.key)) return;
+        if (indexes?.some(ix => ix?.key === index?.key)) return;
 
-        indexes.push(index);
+        indexes?.push(index);
         setIndexes(indexes);
-        props.onChange(indexes);
+        props?.onChange(indexes);
     }
 
     return (

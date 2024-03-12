@@ -15,7 +15,7 @@ import { getMemoryIndex } from '../../services/BeholderService';
  * - onLoad?
  */
 function WalletSummary(props) {
-    console.log(props?.symbol, "system symbol");
+    // console.log(props?.symbol, "system symbol");
 
     const { theme } = useTheme();
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { Input } from 'react-native-elements';
-import Picker from 'react-native-picker-select';
+import { Dropdown } from 'react-native-element-dropdown';
 import { Feather as Icon } from '@expo/vector-icons';
 
 /**
@@ -53,22 +53,26 @@ function QuantityInput(props) {
             <View style={styles.row}>
                 {icon}
                 <View style={{ flex: 1 }}>
-                    <Picker
-                        value={`${value}`}
-                        onValueChange={onChange}
-                        useNativeAndroidPickerStyle={false}
-                        style={{
-                            ...pickerSelectStyles,
-                            iconContainer: {
-                                top: 20,
-                                right: 12
-                            }
-                        }}
-                        Icon={() => <Icon name="chevron-down" size={24} color="black" />}
-                        items={[
-                            { label: 'Max. Wallet', value: 'MAX_WALLET' },
-                            { label: 'Min. Notional', value: 'MIN_NOTIONAL' }
-                        ]} />
+                <View style={styles.wrapper}>
+            <Dropdown
+                style={[pickerStyles.dropdown, { borderColor: 'gray' }]}
+                placeholderStyle={pickerStyles.placeholderStyle}
+                selectedTextStyle={pickerStyles.selectedTextStyle}
+                inputSearchStyle={pickerStyles.inputSearchStyle}
+                iconStyle={pickerStyles.iconStyle}
+                defaultValue={type}
+                valueField="value"
+                labelField={'label'}
+                placeholder='Select Type'
+                value={`${value}`}
+                searchPlaceholder="Search..."
+                data={[
+                    { label: 'Max. Wallet', value: 'MAX_WALLET' },
+                    { label: 'Min. Notional', value: 'MIN_NOTIONAL' }
+                ]}
+                onChange={onChange}
+            />
+        </View>
                 </View>
             </View>
         )
@@ -86,26 +90,45 @@ function QuantityInput(props) {
     )
 }
 
-const pickerSelectStyles = StyleSheet.create({
-    inputIOS: {
-        marginVertical: 15,
-        height: 30,
-        paddingHorizontal: 10,
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: 'black',
-        alignItems: 'stretch'
+const pickerStyles = StyleSheet.create({
+    wrapper: {
+        margin: 10,
+        paddingTop: 10,
     },
-    inputAndroid: {
-        marginVertical: 15,
-        height: 30,
-        paddingHorizontal: 10,
+    dropdown: {
+        height: 50,
+        borderColor: 'gray',
+        borderWidth: 0.5,
+        borderRadius: 8,
+        paddingHorizontal: 8,
+    },
+    icon: {
+        marginRight: 5,
+    },
+    label: {
+        position: 'absolute',
+        backgroundColor: 'white',
+        left: 22,
+        top: 8,
+        zIndex: 999,
+        paddingHorizontal: 8,
+        fontSize: 14,
+    },
+    placeholderStyle: {
         fontSize: 16,
-        fontWeight: 'bold',
-        color: 'black',
-        alignItems: 'stretch'
-    }
-})
+    },
+    selectedTextStyle: {
+        fontSize: 16,
+    },
+    iconStyle: {
+        width: 20,
+        height: 20,
+    },
+    inputSearchStyle: {
+        height: 40,
+        fontSize: 16,
+    },
+});
 
 const styles = StyleSheet.create({
     row: {

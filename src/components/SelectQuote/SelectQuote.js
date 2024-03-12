@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Picker from 'react-native-picker-select';
+import { Dropdown } from 'react-native-element-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Feather as Icon } from '@expo/vector-icons';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
 
 /**
  * props:
@@ -10,6 +10,7 @@ import { StyleSheet } from 'react-native';
  * - onChange
  */
 function SelectQuote(props) {
+    console.log(props, 'props');
 
     const [quote, setQuote] = useState('USDT');
     const [isFuture, setIsFuture] = useState(false);
@@ -18,7 +19,7 @@ function SelectQuote(props) {
         AsyncStorage.getItem('quote')
             .then(value => {
                 setQuote(value || 'USDT');
-                props.onChange(value || 'USDT');
+                props?.onChange(value || 'USDT');
             })
             .catch(err => console.error(err));
     }, [])
@@ -45,41 +46,67 @@ function SelectQuote(props) {
     }
 
     return (
-        <Picker
+        <View style={styles.wrapper}>
+        <Dropdown
+            style={[styles.dropdown, { borderColor: 'gray' }]}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            iconStyle={styles.iconStyle}
+            defaultValue={quote}
+            valueField="value"
+            labelField={'label'}
+            placeholder='Select Quote'
             value={quote}
-            useNativeAndroidPickerStyle={false}
-            onValueChange={value => {
-                AsyncStorage.setItem('quote', value);
-                setQuote(value);
-                props.onChange(value);
+            searchPlaceholder="Search..."
+            data={getItems()}
+            onChange={value => {
+                setQuote(value?.value);
+                props.onChange(value?.value);
             }}
-            style={{
-                ...styles,
-                iconContainer: {
-                    top: 10,
-                    right: 12
-                }
-            }}
-            Icon={() => <Icon name="chevron-down" size={24} color="black" />}
-            items={getItems()} />
+        />
+    </View>
     )
 }
 
 const styles = StyleSheet.create({
-    inputAndroid: {
-        marginVertical: 10,
-        height: 30,
-        paddingHorizontal: 10,
-        fontSize: 16,
-        alignItems: 'stretch'
+    wrapper: {
+        margin: 10,
+        paddingTop: 10,
     },
-    inputIOS: {
-        marginVertical: 10,
-        height: 30,
-        paddingHorizontal: 10,
+    dropdown: {
+        height: 50,
+        borderColor: 'gray',
+        borderWidth: 0.5,
+        borderRadius: 8,
+        paddingHorizontal: 8,
+    },
+    icon: {
+        marginRight: 5,
+    },
+    label: {
+        position: 'absolute',
+        backgroundColor: 'white',
+        left: 22,
+        top: 8,
+        zIndex: 999,
+        paddingHorizontal: 8,
+        fontSize: 14,
+    },
+    placeholderStyle: {
         fontSize: 16,
-        alignItems: 'stretch'
-    }
-})
+    },
+    selectedTextStyle: {
+        fontSize: 16,
+    },
+    iconStyle: {
+        width: 20,
+        height: 20,
+    },
+    inputSearchStyle: {
+        height: 40,
+        fontSize: 16,
+    },
+});
 
 export default SelectQuote;

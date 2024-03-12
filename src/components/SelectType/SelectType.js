@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
-import Picker from 'react-native-picker-select';
-import { Feather as Icon } from '@expo/vector-icons';
+import { Dropdown } from 'react-native-element-dropdown';
+import { StyleSheet, View } from 'react-native';
 
 /**
  * props:
@@ -15,8 +14,8 @@ function SelectType(props) {
     const [isFuture, setIsFuture] = useState(false);
 
     useEffect(() => {
-        setType(props.type);
-    }, [props.type])
+        setType(props?.type);
+    }, [props?.type])
 
     useEffect(() => {
         setIsFuture(props.isFuture ? true : false);
@@ -46,42 +45,68 @@ function SelectType(props) {
     }
 
     return (
-        <Picker
-            value={type}
-            useNativeAndroidPickerStyle={false}
-            onValueChange={value => {
-                setType(value);
-                props.onChange(value);
-            }}
-            style={{
-                ...styles,
-                iconContainer: {
-                    top: 10,
-                    right: 12
-                }
-            }}
-            Icon={() => <Icon name="chevron-down" size={24} color="black" />}
-            items={getTypes(isFuture)} />
+        <View style={styles.wrapper}>
+            <Dropdown
+                style={[styles.dropdown, { borderColor: 'gray' }]}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                inputSearchStyle={styles.inputSearchStyle}
+                iconStyle={styles.iconStyle}
+                defaultValue={type}
+                valueField="value"
+                labelField={'label'}
+                placeholder='Select Type'
+                value={type}
+                searchPlaceholder="Search..."
+                data={getTypes(isFuture)}
+                onChange={value => {
+                    setType(value?.value);
+                    {console.log(type, "vale is changing") }
+                    props.onChange(value?.value);
+                }}
+            />
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
-    inputAndroid: {
-        marginVertical: 15,
-        height: 30,
-        paddingHorizontal: 10,
-        fontSize: 16,
-        alignItems: 'stretch',
-        fontWeight: 'bold'
+    wrapper: {
+        margin: 10,
+        paddingTop: 10,
     },
-    inputIOS: {
-        marginVertical: 15,
-        height: 30,
-        paddingHorizontal: 10,
+    dropdown: {
+        height: 50,
+        borderColor: 'gray',
+        borderWidth: 0.5,
+        borderRadius: 8,
+        paddingHorizontal: 8,
+    },
+    icon: {
+        marginRight: 5,
+    },
+    label: {
+        position: 'absolute',
+        backgroundColor: 'white',
+        left: 22,
+        top: 8,
+        zIndex: 999,
+        paddingHorizontal: 8,
+        fontSize: 14,
+    },
+    placeholderStyle: {
         fontSize: 16,
-        alignItems: 'stretch',
-        fontWeight: 'bold'
-    }
-})
+    },
+    selectedTextStyle: {
+        fontSize: 16,
+    },
+    iconStyle: {
+        width: 20,
+        height: 20,
+    },
+    inputSearchStyle: {
+        height: 40,
+        fontSize: 16,
+    },
+});
 
 export default SelectType;

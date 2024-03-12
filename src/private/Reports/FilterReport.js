@@ -50,7 +50,7 @@ function FilterReport(props) {
                         )
                         : <></>
                 }
-                <SelectQuote isFuture={filter.isFuture} onChange={quote => setFilter(prevState => ({ ...prevState, quote }))} />
+                <SelectQuote isFuture={filter?.isFuture} onChange={quote => setFilter(prevState => ({ ...prevState, quote }))} />
                 <DateInput label="Start Date:" timestamp={filter.startDate} onChange={startDate => setFilter(prevState => ({ ...prevState, startDate }))} />
                 <DateInput label="End Date:" timestamp={filter.endDate} onChange={endDate => setFilter(prevState => ({ ...prevState, endDate }))} />
                 <Button

@@ -88,7 +88,7 @@ function NewMonitor({ route, navigation }) {
                         ? <GeneralArea
                             monitor={monitor}
                             onChange={newProp => setMonitor({ ...monitor, [newProp.name]: newProp.value })} />
-                        : <IndexesArea indexes={monitor.indexes} onChange={onIndexChange} />
+                        : <IndexesArea indexes={monitor?.indexes} onChange={onIndexChange} />
                 }
 
                 <View style={styles.button}>

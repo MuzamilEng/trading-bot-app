@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text,View, StyleSheet } from 'react-native';
 import { Button, Overlay, Input, useTheme } from 'react-native-elements';
 import { Feather as Icon } from '@expo/vector-icons';
-import Picker from 'react-native-picker-select';
+import { Dropdown } from 'react-native-element-dropdown';
 
 /**
  * props:
@@ -56,7 +56,24 @@ function MultiplierInput(props) {
         return (
             <View style={styles.row}>
                 {icon}
-                <View style={{ flex: 1 }}>
+                <View style={pickerSelectStyles.wrapper}>
+            <Dropdown
+                style={[pickerSelectStyles.dropdown, { borderColor: 'gray' }]}
+                placeholderStyle={pickerSelectStyles.placeholderStyle}
+                selectedTextStyle={pickerSelectStyles.selectedTextStyle}
+                inputSearchStyle={pickerSelectStyles.inputSearchStyle}
+                iconStyle={pickerSelectStyles.iconStyle}
+                defaultValue={value}
+                valueField="value"
+                labelField={'label'}
+                placeholder='Select Type'
+                value={value}
+                searchPlaceholder="Search..."
+                data={props?.options}
+                onChange={setValue}
+            />
+        </View>
+                {/* <View style={{ flex: 1 }}>
                     <Picker
                         value={`${value}`}
                         onValueChange={setValue}
@@ -70,7 +87,7 @@ function MultiplierInput(props) {
                                 right: 12
                             }
                         }} />
-                </View>
+                </View> */}
             </View>
         )
     }
@@ -116,24 +133,43 @@ function MultiplierInput(props) {
 }
 
 const pickerSelectStyles = StyleSheet.create({
-    inputIOS: {
-        marginVertical: 15,
-        height: 30,
-        paddingHorizontal: 10,
-        fontSize: 16,
-        alignItems: 'stretch',
-        fontWeight: 'bold',
-        color: 'black'
+    wrapper: {
+        margin: 10,
+        paddingTop: 10,
     },
-    inputAndroid: {
-        marginVertical: 15,
-        height: 30,
-        paddingHorizontal: 10,
+    dropdown: {
+        height: 50,
+        borderColor: 'gray',
+        borderWidth: 0.5,
+        borderRadius: 8,
+        paddingHorizontal: 8,
+    },
+    icon: {
+        marginRight: 5,
+    },
+    label: {
+        position: 'absolute',
+        backgroundColor: 'white',
+        left: 22,
+        top: 8,
+        zIndex: 999,
+        paddingHorizontal: 8,
+        fontSize: 14,
+    },
+    placeholderStyle: {
         fontSize: 16,
-        alignItems: 'stretch',
-        fontWeight: 'bold',
-        color: 'black'
-    }
+    },
+    selectedTextStyle: {
+        fontSize: 16,
+    },
+    iconStyle: {
+        width: 20,
+        height: 20,
+    },
+    inputSearchStyle: {
+        height: 40,
+        fontSize: 16,
+    },
 })
 
 const styles = StyleSheet.create({

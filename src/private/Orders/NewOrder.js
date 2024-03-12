@@ -150,7 +150,7 @@ function NewOrder({ navigation, route }) {
                     <View style={{ ...theme.inputContainer, marginTop: 10, paddingTop: 10 }}>
                         <ScrollView>
                             <SelectSide isFuture={isFuture} side={order.side} onChange={side => setOrder({ ...order, side })} />
-                            <SelectType isFuture={isFuture} type={order.type} onChange={type => setOrder({ ...order, type })} />
+                            <SelectType isFuture={isFuture} type={order?.type} onChange={type => setOrder({ ...order, type })} />
                             {
                                 position
                                     ? (

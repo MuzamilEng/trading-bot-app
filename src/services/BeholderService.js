@@ -1,6 +1,6 @@
 import axios from './BaseService';
 import { REACT_APP_API_URL as API_URL } from '@env';
-const BEHOLDER_URL = 'http://192.168.64.150:3002/beholder' || `${API_URL}/beholder`;
+const BEHOLDER_URL = 'http://192.168.18.205:3002/beholder' || `${API_URL}/beholder`;
 console.log(BEHOLDER_URL, "beholder");
 
 export async function getMemoryIndex(symbol, index, interval = '') {

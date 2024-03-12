@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
-import Picker from 'react-native-picker-select';
-import { Feather as Icon } from '@expo/vector-icons';
+import { Dropdown } from 'react-native-element-dropdown';
+import { StyleSheet, View } from 'react-native';
 
 /**
  * props:
@@ -28,48 +27,71 @@ function IndexSelect(props) {
     }
 
     return (
-        <Picker
-            value={index}
-            onValueChange={onChange}
-            style={{
-                ...pickerSelectStyles,
-                iconContainer: {
-                    top: 0,
-                    right: 12
+        <View style={styles.wrapper}>
+            <Dropdown
+                style={[styles.dropdown, { borderColor: 'gray' }]}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                inputSearchStyle={styles.inputSearchStyle}
+                iconStyle={styles.iconStyle}
+                defaultValue={index}
+                valueField="value"
+                labelField={'label'}
+                placeholder='Select Index'
+                value={index}
+                searchPlaceholder="Search..."
+                data={
+                    indexes.map(item => {
+                        return {
+                            label: getOptionText(item.symbol, item.variable),
+                            value: item.eval
+                        }
+                    })
                 }
-            }}
-            items={
-                indexes.map(item => {
-                    return {
-                        label: getOptionText(item.symbol, item.variable),
-                        value: item.eval
-                    }
-                })
-            }
-            Icon={() => <Icon name="chevron-down" size={24} color="black" />}
-            useNativeAndroidPickerStyle={false} />
+                onChange={onChange}
+            />
+        </View>
     )
 }
 
-const pickerSelectStyles = StyleSheet.create({
-    inputIOS: {
-        height: 30,
-        marginBottom: 15,
-        paddingHorizontal: 10,
-        fontSize: 16,
-        alignItems: 'stretch',
-        fontWeight: 'bold',
-        color: 'black'
+const styles = StyleSheet.create({
+    wrapper: {
+        margin: 10,
+        paddingTop: 10,
     },
-    inputAndroid: {
-        height: 30,
-        marginBottom: 15,
-        paddingHorizontal: 10,
+    dropdown: {
+        height: 50,
+        borderColor: 'gray',
+        borderWidth: 0.5,
+        borderRadius: 8,
+        paddingHorizontal: 8,
+    },
+    icon: {
+        marginRight: 5,
+    },
+    label: {
+        position: 'absolute',
+        backgroundColor: 'white',
+        left: 22,
+        top: 8,
+        zIndex: 999,
+        paddingHorizontal: 8,
+        fontSize: 14,
+    },
+    placeholderStyle: {
         fontSize: 16,
-        alignItems: 'stretch',
-        fontWeight: 'bold',
-        color: 'black'
-    }
-})
+    },
+    selectedTextStyle: {
+        fontSize: 16,
+    },
+    iconStyle: {
+        width: 20,
+        height: 20,
+    },
+    inputSearchStyle: {
+        height: 40,
+        fontSize: 16,
+    },
+});
 
 export default IndexSelect;

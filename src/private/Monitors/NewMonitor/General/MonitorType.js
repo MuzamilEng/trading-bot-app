@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Text, StyleSheet } from 'react-native';
-import Picker from 'react-native-picker-select';
-import { Feather as Icon } from '@expo/vector-icons';
+import { Text, StyleSheet, View } from 'react-native';
+import { Dropdown } from 'react-native-element-dropdown';
 
 /**
  * props:
@@ -24,21 +23,25 @@ function MonitorType(props) {
     return (
         <>
             <Text style={styles.label}>Type:</Text>
-            <Picker
+            <View style={pickerSelectStyles.wrapper}>
+            <Dropdown
+                style={[pickerSelectStyles.dropdown, { borderColor: 'gray' }]}
+                placeholderStyle={pickerSelectStyles.placeholderStyle}
+                selectedTextStyle={pickerSelectStyles.selectedTextStyle}
+                inputSearchStyle={pickerSelectStyles.inputSearchStyle}
+                iconStyle={pickerSelectStyles.iconStyle}
+                defaultValue={type}
+                valueField="value"
+                labelField={'label'}
+                placeholder='Select Type'
                 value={type}
-                onValueChange={onChange}
-                style={{
-                    ...pickerSelectStyles,
-                    iconContainer: {
-                        top: 10,
-                        right: 5
-                    }
-                }}
-                Icon={() => <Icon name="chevron-down" size={24} color="black" />}
-                useNativeAndroidPickerStyle={false}
-                items={[
+                searchPlaceholder="Search..."
+                data={[
                     { label: 'Candles', value: 'CANDLES' }
-                ]} />
+                ]}
+                onChange={onChange}
+            />
+        </View>
         </>
     )
 }
@@ -52,24 +55,42 @@ const styles = StyleSheet.create({
 })
 
 const pickerSelectStyles = StyleSheet.create({
-    inputIOS: {
-        marginVertical: 15,
-        height: 30,
-        paddingRight: 5,
-        fontSize: 16,
-        alignItems: 'stretch',
-        fontWeight: 'bold',
-        color: 'black'
-    },
-    inputAndroid: {
-        marginVertical: 15,
-        height: 30,
-        paddingRight: 5,
-        fontSize: 16,
-        alignItems: 'stretch',
-        fontWeight: 'bold',
-        color: 'black'
-    }
-})
-
+        wrapper: {
+            margin: 10,
+            paddingTop: 10,
+        },
+        dropdown: {
+            height: 50,
+            borderColor: 'gray',
+            borderWidth: 0.5,
+            borderRadius: 8,
+            paddingHorizontal: 8,
+        },
+        icon: {
+            marginRight: 5,
+        },
+        label: {
+            position: 'absolute',
+            backgroundColor: 'white',
+            left: 22,
+            top: 8,
+            zIndex: 999,
+            paddingHorizontal: 8,
+            fontSize: 14,
+        },
+        placeholderStyle: {
+            fontSize: 16,
+        },
+        selectedTextStyle: {
+            fontSize: 16,
+        },
+        iconStyle: {
+            width: 20,
+            height: 20,
+        },
+        inputSearchStyle: {
+            height: 40,
+            fontSize: 16,
+        },
+    });
 export default MonitorType;

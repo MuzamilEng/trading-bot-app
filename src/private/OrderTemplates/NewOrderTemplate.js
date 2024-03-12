@@ -188,7 +188,7 @@ function NewOrderTemplate({ navigation, route }) {
                                         <>
                                             <Text style={styles.label}>Margin: </Text>
                                             <MarginType
-                                                type={orderTemplate.marginType || 'ISOLATED'}
+                                                type={orderTemplate?.marginType || 'ISOLATED'}
                                                 onChange={marginType => setOrderTemplate({ ...orderTemplate, marginType })} />
                                             <Text style={styles.label}>Leverage: </Text>
                                             <LeverageInput

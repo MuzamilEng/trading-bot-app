@@ -18,7 +18,6 @@ function SelectFiat(props) {
     const handleFiatChange = async (fiat) => {
         console.log(fiat?.value, 'setFiat');
         await AsyncStorage.setItem('fiat', fiat?.value);
-        console.log('clicking on');
         setFiat(fiat?.value);
         props?.onChange(fiat?.value);
       };
@@ -43,6 +42,8 @@ function SelectFiat(props) {
         defaultValue={fiat}
         valueField="value"
         labelField={'label'}
+        placeholder='Select Fiat'
+        value={fiat}
         searchPlaceholder="Search..."
         data={data}
         onChange={handleFiatChange}
