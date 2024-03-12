@@ -1,6 +1,6 @@
 import axios from './BaseService';
 // import { REACT_APP_API_URL as API_URL } from '@env';
-const API_URL = 'http://192.168.18.205:3002' || process.env.REACT_APP_API_URL // for mobile devices
+const API_URL = 'http://192.168.64.150:3002' || process.env.REACT_APP_API_URL // for mobile devices
 // const apiUrl = 'http://localhost:3002' || process.env.REACT_APP_API_URL  // for desktop devices
 const SETTINGS_URL = `${API_URL}/settings`;
 

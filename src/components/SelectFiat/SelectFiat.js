@@ -1,10 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import DropDownPicker from 'react-native-dropdown-picker';
+import { Dropdown } from 'react-native-element-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Feather as Icon } from '@expo/vector-icons';
 import { StyleSheet, View } from 'react-native';
 function SelectFiat(props) {
     const [fiat, setFiat] = useState('USD');
+    const data = [
+        { label: 'AUD', value: 'AUD' },
+        { label: 'BRL', value: 'BRL' },
+        { label: 'EUR', value: 'EUR' },
+        { label: 'GBP', value: 'GBP' },
+        { label: 'NGN', value: 'NGN' },
+        { label: 'TRY', value: 'TRY' },
+        { label: 'UAH', value: 'UAH' },
+        { label: 'USD', value: 'USD' }
+    ]
+
+    const handleFiatChange = async (fiat) => {
+        console.log(fiat?.value, 'setFiat');
+        await AsyncStorage.setItem('fiat', fiat?.value);
+        console.log('clicking on');
+        setFiat(fiat?.value);
+        props?.onChange(fiat?.value);
+      };
 
     useEffect(() => {
         AsyncStorage.getItem('fiat')
@@ -17,47 +34,64 @@ function SelectFiat(props) {
 
     return (
         <View style={styles.wrapper}>
-        <DropDownPicker
-defaultValue={fiat}
-items={[
-    { label: 'AUD', value: 'AUD' },
-    { label: 'BRL', value: 'BRL' },
-    { label: 'EUR', value: 'EUR' },
-    { label: 'GBP', value: 'GBP' },
-    { label: 'NGN', value: 'NGN' },
-    { label: 'TRY', value: 'TRY' },
-    { label: 'UAH', value: 'UAH' },
-    { label: 'USD', value: 'USD' }
-]}
-// containerStyle={{ height: 40 }}
-style={{ ...styles, iconContainer: { top: 10, right: 12 } }}
-// dropDownStyle={{ ...styles.dropDownStyle }}
-onChangeItem={item => {
-    AsyncStorage.setItem('fiat', item.value);
-    setFiat(item.value);
-    props?.onChange(item.value);
-}}
-/>
+        <Dropdown
+        style={[styles.dropdown, { borderColor: 'gray' }]}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle}
+        defaultValue={fiat}
+        valueField="value"
+        labelField={'label'}
+        searchPlaceholder="Search..."
+        data={data}
+        onChange={handleFiatChange}
+        />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    inputAndroid: {
-        marginTop: 10,
-        height: 40,
-        paddingHorizontal: 24,
-        fontSize: 16,
-        alignItems: 'stretch'
+    wrapper: {
+        margin: 10,
+        paddingTop: 10,
     },
-    dropDownStyle: {
-        backgroundColor: '#fafafa'
+    container: {
+      backgroundColor: 'white',
+      padding: 16,
     },
-    wrapper:{
-        marginTop: 10,
-        marginLeft: 10,
-        marginRight: 10
-    }
-});
-
+    dropdown: {
+      height: 50,
+      borderColor: 'gray',
+      borderWidth: 0.5,
+      borderRadius: 8,
+      paddingHorizontal: 8,
+    },
+    icon: {
+      marginRight: 5,
+    },
+    label: {
+      position: 'absolute',
+      backgroundColor: 'white',
+      left: 22,
+      top: 8,
+      zIndex: 999,
+      paddingHorizontal: 8,
+      fontSize: 14,
+    },
+    placeholderStyle: {
+      fontSize: 16,
+    },
+    selectedTextStyle: {
+      fontSize: 16,
+    },
+    iconStyle: {
+      width: 20,
+      height: 20,
+    },
+    inputSearchStyle: {
+      height: 40,
+      fontSize: 16,
+    },
+  });
 export default SelectFiat;

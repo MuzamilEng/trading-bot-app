@@ -1,6 +1,6 @@
 import axios from './BaseService';
 import { REACT_APP_API_URL as API_URL } from '@env';
-const SYMBOLS_URL = 'http://192.168.18.205:3002/symbols' || `${API_URL}/symbols`;
+const SYMBOLS_URL = 'http://192.168.64.150:3002/symbols' || `${API_URL}/symbols`;
 console.log(SYMBOLS_URL, "Symb");
 
 export async function searchSymbols(search) {
