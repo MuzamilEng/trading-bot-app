@@ -42,7 +42,7 @@ function NewOrder({ navigation, route }) {
             .then(value => {
                 setHasFutures(value === "true");
                 setIsFuture(route.params.isFuture ? true : false);
-                setOrder({ ...DEFAULT_ORDER, symbol: route.params.symbol || 'BTCUSDT' });
+                setOrder({ ...DEFAULT_ORDER, symbol: route?.params?.symbol || 'BTCUSDT' });
                 setError('');
                 setPrice(0);
             })
@@ -128,19 +128,19 @@ function NewOrder({ navigation, route }) {
                             size={24}
                             color="black"
                             backgroundColor="transparent"
-                            onPress={() => navigation.navigate("OrdersList", { symbol: order.symbol })} />
+                            onPress={() => navigation.navigate("OrdersList", { symbol: order?.symbol })} />
                         <View style={{ flex: 1, alignItems: 'center' }}>
                             <SelectSymbol
                                 hasFutures={hasFutures}
                                 isFuture={isFuture}
-                                symbol={order.symbol}
+                                symbol={order?.symbol}
                                 onSymbolChange={symbol => setOrder({ ...DEFAULT_ORDER, symbol })}
                                 onMarketChange={onMarketChange} />
                         </View>
                     </View>
-                    <CurrentPrice symbol={order.symbol} onChange={price => setPrice(price)} />
+                    <CurrentPrice symbol={order?.symbol} onChange={price => setPrice(price)} />
                     <WalletSummary
-                        symbol={order.symbol}
+                        symbol={order?.symbol}
                         isFuture={isFuture}
                         style={{ paddingHorizontal: 20 }}
                         header={false}
@@ -155,8 +155,8 @@ function NewOrder({ navigation, route }) {
                                 position
                                     ? (
                                         <>
-                                            <MarginTypeModal symbol={order.symbol} type={position.marginType} />
-                                            <LeverageModal symbol={order.symbol} leverage={position.leverage} />
+                                            <MarginTypeModal symbol={order?.symbol} type={position?.marginType} />
+                                            <LeverageModal symbol={order?.symbol} leverage={position?.leverage} />
                                         </>
                                     )
                                     : <></>

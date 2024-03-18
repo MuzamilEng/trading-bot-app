@@ -49,7 +49,7 @@ function MarginTypeModal(props) {
             <View style={styles.marginView}>
                 <Text style={styles.label}>Margin: </Text>
                 <Button
-                    title={marginType.toUpperCase()}
+                    title={marginType}
                     titleStyle={styles.selectedMargin}
                     buttonStyle={styles.marginButton}
                     type="clear"
@@ -62,7 +62,7 @@ function MarginTypeModal(props) {
                 onBackdropPress={evt => setShowModal(false)}>
                 <Text style={styles.title}>{symbol + " Perpetual"}</Text>
                 <Divider />
-                <MarginType type={marginType.toUpperCase()} onChange={setMarginType} />
+                <MarginType type={marginType} onChange={setMarginType} />
                 <Text style={styles.p}>Switching the margin mode will only apply it to the selected contract.</Text>
                 <Divider style={styles.p} />
                 <View style={styles.p}>

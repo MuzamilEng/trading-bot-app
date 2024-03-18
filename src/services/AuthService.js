@@ -1,7 +1,7 @@
 import axios from './BaseService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { REACT_APP_API_URL } from "@env";
-const apiUrl = 'http://192.168.18.205:3002' || process.env.REACT_APP_API_URL // for mobile devices
+const apiUrl = 'http://192.168.31.150:3002' || process.env.REACT_APP_API_URL // for mobile devices
 // const apiUrl = 'http://localhost:3002' || process.env.REACT_APP_API_URL  // for desktop devices
 // console.log(apiUrl, "api url");
 export async function doLogin(email, password) {

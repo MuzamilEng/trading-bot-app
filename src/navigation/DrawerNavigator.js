@@ -15,6 +15,7 @@ import AutomationNavigator from './AutomationNavigator';
 import Settings from '../private/Settings/Settings';
 import Logout from '../private/Logout/Logout';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Payment from '../private/Payment/Payment';
 
 const Drawer = createDrawerNavigator();
 
@@ -44,6 +45,9 @@ function DrawerNavigator({ navigation, route }) {
             }
         }}>
             <Drawer.Screen name="Dashboard" component={Dashboard} options={{
+                drawerIcon: config => <DrawerIcon name="pie-chart" />
+            }} />
+            <Drawer.Screen name="Subscription" component={Payment} options={{
                 drawerIcon: config => <DrawerIcon name="pie-chart" />
             }} />
             <Drawer.Screen name="Reports" component={Reports} options={{
