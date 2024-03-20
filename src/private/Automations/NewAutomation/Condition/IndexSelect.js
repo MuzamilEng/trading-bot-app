@@ -17,9 +17,10 @@ function IndexSelect(props) {
     }, [props.indexes])
 
     function onChange(value) {
+        // console.log(value, 'indexvalue');
         if (!value) return;
-        setIndex(value);
-        props.onChange(props.indexes.find(ix => ix.eval === value));
+        setIndex(value?.value);
+        props.onChange(props.indexes.find(ix => ix.eval === value?.value));
     }
 
     function getOptionText(symbol, variable) {
@@ -41,10 +42,10 @@ function IndexSelect(props) {
                 value={index}
                 searchPlaceholder="Search..."
                 data={
-                    indexes.map(item => {
+                   indexes && indexes?.map(item => {
                         return {
                             label: getOptionText(item.symbol, item.variable),
-                            value: item.eval
+                            value: item?.eval
                         }
                     })
                 }

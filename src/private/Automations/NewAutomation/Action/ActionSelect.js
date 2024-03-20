@@ -19,8 +19,9 @@ function ActionSelect(props) {
     ]
 
     function onChange(value) {
-        setType(value);
-        props.onChange(value);
+        setType(value?.value ? value.value : value);
+        // console.log(value?.value, 'Action');
+        props.onChange(value?.value ? value.value : value);
     }
 
     return (

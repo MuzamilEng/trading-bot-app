@@ -11,6 +11,7 @@ import { Feather as Icon } from '@expo/vector-icons';
  * - onChange
  */
 function VariableInput(props) {
+    // console.log(props, 'props');
 
     const [indexes, setIndexes] = useState([]);
     const [value, setValue] = useState('');

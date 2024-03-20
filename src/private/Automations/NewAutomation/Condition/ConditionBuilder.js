@@ -26,13 +26,14 @@ function ConditionBuilder(props) {
     }, [props.indexes])
 
     function onIndexChange(index) {
+        console.log(index, 'index111');
         setIndex(index);
-        setValue(index.example);
+        setValue(index?.example);
     }
 
     function onPress() {
         if (!index.eval || !operator || value === undefined) return;
-        props.onAddCondition(`${index.eval}${operator}${value}`);
+        props?.onAddCondition(`${index.eval}${operator}${value}`);
         setShowBuilder(false);
     }
 
@@ -44,7 +45,7 @@ function ConditionBuilder(props) {
                         <View style={{ ...theme.inputContainer, ...styles.build }}>
                             <IndexSelect indexes={indexes} onChange={ix => onIndexChange(ix)} />
                             <OperatorSelect onChange={op => setOperator(op)} />
-                            <VariableInput value={index.example} indexes={indexes} onChange={value => setValue(value)} />
+                            <VariableInput value={index?.example} indexes={indexes} onChange={value => setValue(value)} />
                             <Button
                                 onPress={evt => onPress()}
                                 icon={() => <Icon name="plus" color="black" size={20} />}

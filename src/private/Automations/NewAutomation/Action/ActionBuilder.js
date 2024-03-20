@@ -78,7 +78,7 @@ function ActionBuilder(props) {
     const styles = StyleSheet.create({
         build: {
             marginVertical: 15,
-            height: type && type.indexOf('ALERT') === -1 ? 220 : 150,
+            height: type && type?.indexOf('ALERT') === -1 ? 220 : 150,
             flex: 0
         },
         collapsed: {
@@ -89,7 +89,7 @@ function ActionBuilder(props) {
     })
 
     function renderSelect() {
-        if (!type || type.indexOf('ALERT') !== -1) return <></>;
+        if (!type || type?.indexOf('ALERT') !== -1) return <></>;
 
         if (type === 'WITHDRAW' && isLoaded < 2) return <ActivityIndicator />;
 

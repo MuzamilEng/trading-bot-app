@@ -65,12 +65,13 @@ function ConditionsArea(props) {
     }, [props.symbol])
 
     function onAddCondition(condition) {
-        if (conditions.includes(condition)) return;
+        if (conditions?.includes(condition)) return;
 
-        conditions.push(condition);
+        conditions?.push(condition);
         setConditions(conditions);
+        console.log(conditions, "CONDITIONS");
 
-        props.onChange(conditions.map(c => c.trim()).join(' && '));
+        props?.onChange(conditions?.map(c => c.trim()).join(' && '));
     }
 
     function getText(condition) {
